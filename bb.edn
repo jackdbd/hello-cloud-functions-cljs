@@ -1,0 +1,13 @@
+{:tasks
+ {:requires ([babashka.fs :as fs])
+
+  deploy
+  {:doc "Deploy to GCP Cloud Functions using gcloud"
+   :enter (println "Execute task:" (:name (current-task)))
+   :depends [format]
+   :task (shell "gcloud builds submit ./ --config cloudbuild.yaml --async")}
+
+
+  format
+  {:doc "Format JS code with Prettier"
+   :task (shell "npx prettier --config config/prettier.cjs --write ./{__tests__/**/*,src/**/*,index}.{cjs,js,mjs,ts}")}}}

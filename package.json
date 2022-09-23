@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "scripts": {
+    "start:development": "NODE_ENV=development TELEGRAM=$(cat ./secrets/telegram.json) functions-framework --target=hello --port $PORT",
+    "start:production": "NODE_ENV=production TELEGRAM=$(cat ./secrets/telegram.json) functions-framework --target=hello --port $PORT",
+    "format": "prettier --config config/prettier.cjs --write ./{__tests__/**/*,src/**/*,index}.{cjs,js,mjs,ts}",
+    "predeploy": "npm run format && npm run test",
+    "deploy": "gcloud builds submit ./ --config cloudbuild.yaml --async",
+    "test": "NODE_OPTIONS=--experimental-vm-modules TELEGRAM=$(cat ./secrets/telegram.json) npx jest --config config/jest.cjs --rootDir ./"
+  },
+  "main": "index.mjs",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.2",
+    "@jackdbd/notifications": "^1.0.3",
+    "nbb": "^0.7.135"
+  },
+  "devDependencies": {
+    "jest": "^29.0.3",
+    "prettier": "^2.7.1",
+    "supertest": "^6.2.4"
+  }
+}

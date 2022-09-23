@@ -1,0 +1,14 @@
+# Calva and other tools
+.calva/
+.clj-kondo/
+.cpcache/
+.lsp/
+
+# dependencies
+node_modules/
+
+# environment variables
+.envrc
+
+# secrets
+secrets/
